@@ -20,12 +20,8 @@ function App() {
   return (
     <div className="mx-96 mt-10">
       {waypoints.map((waypoint, index) => (
-        <WaypointLine
-          key={index}
-          waypoint={waypoint}
-        />
+        <WaypointLine key={index} waypoint={waypoint} />
       ))}
-
       <Divider />
       <WaypointLineCreate />
     </div>
