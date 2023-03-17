@@ -8,7 +8,7 @@ import { UpIcon } from "./icons/UpIcon";
 import { Button } from "./ui/Button";
 import { CitiesSelect } from "./ui/CitiesSelect";
 
-interface Waypoint {
+export interface Waypoint {
   city: string;
   driverName: string;
   arrivalDate: Date;
