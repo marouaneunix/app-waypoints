@@ -21,7 +21,7 @@ export const WaypointLineCreate = ({ onCreateWaypoint }: Props) => {
       <div className="basis-1/4  mx-2">
         <CitiesSelect
           city={waypoint.city}
-          onSelectCity={(city) => setWaypoint({...waypoint, city})}
+          onSelectCity={(city) => setWaypoint({ ...waypoint, city })}
         />
       </div>
       <div className="basis-1/4 mx-2">
@@ -29,7 +29,9 @@ export const WaypointLineCreate = ({ onCreateWaypoint }: Props) => {
           placeholder="Driver name"
           type="text"
           value={waypoint.driverName}
-          onChange={(event) => setWaypoint({...waypoint, driverName: event.target.value })}
+          onChange={(event) =>
+            setWaypoint({ ...waypoint, driverName: event.target.value })
+          }
           className="w-full rounded-lg bg-gray-50 border border-gray-300 text-gray-900"
         />
       </div>
@@ -38,7 +40,9 @@ export const WaypointLineCreate = ({ onCreateWaypoint }: Props) => {
           className="w-full rounded-lg bg-gray-50 border border-gray-300 text-gray-900"
           showTimeSelect
           selected={waypoint.arrivalDate}
-          onChange={(date: Date) => setWaypoint({ ...waypoint, arrivalDate: date })}
+          onChange={(date: Date) =>
+            setWaypoint({ ...waypoint, arrivalDate: date })
+          }
           dateFormat="yyyy-MM-dd hh:mm aa"
           placeholderText="Arrival Date"
         />
