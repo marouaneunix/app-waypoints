@@ -1,10 +1,13 @@
-type Props = {
-    children: JSX.Element | JSX.Element[];
-  };
-  export const Button = ({ children }: Props) => {
+
+
+  interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    children: React.ReactNode;
+  }
+  export const Button = ({ children, ...atributes }: Props) => {
     return (
       <button
         type="button"
+        {...atributes}
         className="text-white bg-blue-600 
               hover:bg-blue-700 
               focus:ring-4 
