@@ -23,6 +23,7 @@ type WaypointProps = {
   onUp: (waypoint: Waypoint) => void;
   onDown: (waypoint: Waypoint) => void;
   onToLastPlace: (waypoint: Waypoint) => void;
+  onToPosition: (waypoint: Waypoint) => void;
 };
 export const WaypointLineEdit = ({
   waypoint,
@@ -32,7 +33,8 @@ export const WaypointLineEdit = ({
   onEdit,
   onUp,
   onDown,
-  onToLastPlace
+  onToLastPlace,
+  onToPosition
 }: WaypointProps) => {
   return (
     <div className="flex flex-row p-2 rounded shadow-md items-center">

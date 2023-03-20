@@ -25,8 +25,14 @@ function App() {
           onToFirstPlace={(waypoint) => dispatch({type: "toFirst", waypoint: waypoint})}
           onDelete={(waypoint) => dispatch({ type: "delete", waypoint: waypoint })}
           onEdit={(waypoint) => dispatch({type: "edit", waypoint})}
-          onUp={(waypoint) => dispatch({type: "up", waypoint})}
-          onDown={(waypoint) => dispatch({type: "down", waypoint})}
+          onUp={(waypoint) => {
+            const nextOrder = waypoint.order - 1;
+            dispatch({type: "up", waypoint, position: nextOrder})
+          }}
+          onDown={(waypoint) => {
+            const nextOrder = waypoint.order + 1;
+            dispatch({type: "down", waypoint, position: nextOrder})
+          }}
           onToLastPlace={(waypoint) => dispatch({type: "last", waypoint})}
         />
       )})}
