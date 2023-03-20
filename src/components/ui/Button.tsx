@@ -8,7 +8,7 @@
       <button
         type="button"
         {...atributes}
-        className="text-white bg-blue-600 
+        className="text-white bg-blue-600 disabled:bg-blue-400
               hover:bg-blue-700 
               focus:ring-4 
               focus:outline-none 

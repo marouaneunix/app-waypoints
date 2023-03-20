@@ -11,24 +11,25 @@ import { waypointsReducer } from "./utils/waypointsReducer";
 function App() {
   const [waypoints, dispatch] = useReducer(waypointsReducer, []);
 
-  const toFirst = (waypoint: Waypoint) => {
-    dispatch({type: "toFirst", waypoint: waypoint})
-  }
   return (
     <div className="mx-96 mt-10">
       <WaypointLineCreate onCreateWaypoint={(waypoint) => dispatch({ type: "add", waypoint: waypoint })} />
       <Divider />
-      {waypoints.map((waypoint, index) => (
+      {waypoints.map((waypoint, index) => {
+        const position = index === 0 ? 'FIRST' : index === waypoints.length - 1 ? 'LAST' : ""+index
+        return (
         <WaypointLineEdit
+          position={position}
           key={index}
           waypoint={waypoint}
-          onToFirstPlace={toFirst}
+          onToFirstPlace={(waypoint) => dispatch({type: "toFirst", waypoint: waypoint})}
           onDelete={(waypoint) => dispatch({ type: "delete", waypoint: waypoint })}
           onEdit={(waypoint) => dispatch({type: "edit", waypoint})}
           onUp={(waypoint) => dispatch({type: "up", waypoint})}
           onDown={(waypoint) => dispatch({type: "down", waypoint})}
+          onToLastPlace={(waypoint) => dispatch({type: "last", waypoint})}
         />
-      ))}
+      )})}
     </div>
   );
 }

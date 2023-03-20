@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Waypoint } from "./WaypointLineEdit";
 
 const defaultWaypoint: Waypoint = {
+  order: 0,
   driverName: "",
   city: "",
   arrivalDate: new Date(),

@@ -13,8 +13,22 @@ export const waypointsReducer = (waypoints: Waypoint[], action: any) => {
         return waypoint;
       })
     } else if(action.type === "toFirst") {
-      console.log('toFirst')
-      return [...waypoints];
+      let order = 1;
+      const array = waypoints
+      .filter(w => w !== action.waypoint)
+      .map((w) => {
+        order++;
+        return {...w, order:order}
+      });
+      return [{...action.waypoint, order:1}, ...array];
+    }else if(action.type === "last") {
+    
+      const array = waypoints
+      .filter(w => w !== action.waypoint)
+      .map((w, index) => {
+        return {...w, order:++index}
+      });
+      return [...array, {...action.waypoint, order:array.length}];
     } else if(action.type === "up") {
       const indexoF = waypoints.findIndex(w => w === action.waypoint);
       waypoints[indexoF].order--;

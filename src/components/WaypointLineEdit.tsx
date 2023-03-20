@@ -16,19 +16,23 @@ export interface Waypoint {
 }
 type WaypointProps = {
   waypoint: Waypoint;
+  position: string;
   onToFirstPlace: (waypoint: Waypoint) => void;
   onDelete: (waypoint: Waypoint) => void;
   onEdit: (waypoint: Waypoint) => void;
   onUp: (waypoint: Waypoint) => void;
   onDown: (waypoint: Waypoint) => void;
+  onToLastPlace: (waypoint: Waypoint) => void;
 };
 export const WaypointLineEdit = ({
   waypoint,
+  position,
   onToFirstPlace,
   onDelete,
   onEdit,
   onUp,
-  onDown
+  onDown,
+  onToLastPlace
 }: WaypointProps) => {
   return (
     <div className="flex flex-row p-2 rounded shadow-md items-center">
@@ -61,16 +65,16 @@ export const WaypointLineEdit = ({
         />
       </div>
       <div className="basis-1/4">
-        <Button onClick={() => onToFirstPlace(waypoint)}>
+        <Button disabled={position === 'FIRST'} onClick={() => onToFirstPlace(waypoint)}>
           <TopIcon />
         </Button>
-        <Button onClick={() => onUp(waypoint)}>
+        <Button disabled={position === 'FIRST'} onClick={() => onUp(waypoint)}>
           <UpIcon />
         </Button>
-        <Button onClick={() => onDown(waypoint)}>
+        <Button disabled={position === 'LAST'} onClick={() => onDown(waypoint)}>
           <DownIcon />
         </Button>
-        <Button>
+        <Button disabled={position === 'LAST'} onClick={() => onToLastPlace(waypoint)}>
           <BottomIcon />
         </Button>
         <Button onClick={() => onDelete(waypoint)}>
