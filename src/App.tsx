@@ -6,29 +6,69 @@ import { WaypointLineCreate } from "./components/WaypointLineCreate";
 import { Waypoint, WaypointLineEdit } from "./components/WaypointLineEdit";
 import { waypointsReducer } from "./utils/waypointsReducer";
 import axios from "axios";
+import { Routes, Route, Outlet, useRouteError } from "react-router";
+import { Link } from "react-router-dom";
+import { UsersPage } from "./pages/UsersPage";
 
-type User = {
-  id: number;
-  login: string;
-  avatar_url: string;
-};
 function App() {
-  const [waypoints, dispatch] = useReducer(waypointsReducer, []);
-  const [users, setUsers] = useState<Array<User>>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/users");
-        setUsers(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
   return (
-    <div className="mx-96 mt-10">
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<WaypointsPage />} />
+        <Route path="users" element={<UsersPage />} />
+
+        {/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+                routes for. */}
+        <Route path="*" element={<ErrorPage />} />
+      </Route>
+    </Routes>
+  );
+}
+
+export default App;
+
+const ErrorPage = () => {
+  return (
+    <div id="error-page">
+      <h1>Oops!</h1>
+      <p>Sorry, an unexpected error has occurred.</p>
+    </div>
+  );
+};
+
+const Layout = () => {
+  return (
+    <div>
+      {/* A "layout route" is a good place to put markup you want to
+          share across all the pages on your site, like navigation. */}
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/users">Users</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <hr />
+
+      {/* An <Outlet> renders whatever child route is currently active,
+          so you can think about this <Outlet> as a placeholder for
+          the child routes we defined above. */}
+      <div className="mx-96 mt-10">
+        <Outlet />
+      </div>
+    </div>
+  );
+};
+const WaypointsPage = () => {
+  const [waypoints, dispatch] = useReducer(waypointsReducer, []);
+
+  return (
+    <>
       <WaypointLineCreate
         onCreateWaypoint={(waypoint) =>
           dispatch({ type: "add", waypoint: waypoint })
@@ -50,38 +90,6 @@ function App() {
           onDown={(waypoint) => dispatch({ type: "down", waypoint })}
         />
       ))}
-
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500 ">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                <span className="sr-only">Image</span>
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Name
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user.id} className="bg-white border-b  hover:bg-gray-50 ">
-                <td className="w-32 p-4">
-                  <img
-                    src={user.avatar_url}
-                    alt="Apple Watch"
-                  />
-                </td>
-                <td className="px-6 py-4 font-semibold text-gray-900 ">
-                  {user.login}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    </>
   );
-}
-
-export default App;
+};
