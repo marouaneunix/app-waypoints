@@ -7,7 +7,7 @@ export const WaypointLineCreate = () => {
     return (
         <div className="flex flex-row p-2 rounded shadow-md items-center">
         <div className="basis-1/4  mx-2">
-          <CitiesSelect />
+          <CitiesSelect city="Fès" onSelectCity={city => console.log(city)}/>
         </div>
         <div className="basis-1/4 mx-2">
           <input
