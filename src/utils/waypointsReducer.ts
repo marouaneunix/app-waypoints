@@ -6,7 +6,10 @@ export const waypointsReducer = (waypoints: Waypoint[], action: any) => {
     return [...waypoints, { ...action.waypoint, order: waypoints.length + 1 }];
   } else if (action.type === "delete") {
 
-    return waypoints.filter((waypoint) => waypoint !== action.waypoint);
+    return waypoints
+    .filter((waypoint) => waypoint !== action.waypoint)
+    .map((w, index) => {return {...w, order: index+1}})
+    .sort((w1, w2) => w1.order - w2.order);
   } else if (action.type === "edit") {
 
     return waypoints.map((waypoint) => {
